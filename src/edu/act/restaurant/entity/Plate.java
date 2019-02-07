@@ -8,24 +8,24 @@ import java.util.Map;
  * @author chaikal
  */
 class Plate {
-    
+
     private String name;
-    
+
     private Map<Ingredient, Integer> ingredientMap;
-    
-    public Plate(){
+
+    public Plate() {
         ingredientMap = new HashMap<>();
     }
-    
-    public void storeIngredient(Ingredient i, int amount ){
+
+    public void storeIngredient(Ingredient i, int amount) {
         ingredientMap.put(i, amount);
     }
-    
-    public void displayIngredients(){
-        System.out.println("Ingredients of Plate : "+name);
-        for(Ingredient i : ingredientMap.keySet() ) {
+
+    public void displayIngredients() {
+        System.out.println("Ingredients of Plate : " + name);
+        for (Ingredient i : ingredientMap.keySet()) {
             Integer amount = ingredientMap.get(i);
-            System.out.println(i.getName() + " , "+amount + " gr");
+            System.out.println(i.getName() + " , " + amount + " gr");
         }
     }
 
@@ -36,7 +36,16 @@ class Plate {
     public void setName(String name) {
         this.name = name;
     }
-    
-    
-    
+
+    public boolean isAvailable() {
+        for (Ingredient i : ingredientMap.keySet()) {
+            int amountNeededForPlate = ingredientMap.get(i);
+            int amountInStock = i.getAmount();
+            if (amountInStock < amountNeededForPlate) {
+                return false;
+            }
+        }
+        return true;
+    }
+
 }

@@ -9,8 +9,9 @@ class Ingredient {
     private String name;
     private int amount;
     
-    public Ingredient(String someName){
+    public Ingredient(String someName, int stockAmount){
         this.name = someName;
+        this.amount = stockAmount;
     }
 
     public String getName() {
