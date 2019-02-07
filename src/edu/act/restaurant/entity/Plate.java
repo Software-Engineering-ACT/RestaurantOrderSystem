@@ -16,6 +16,18 @@ class Plate {
     public Plate(){
         ingredientMap = new HashMap<>();
     }
+    
+    public void storeIngredient(Ingredient i, int amount ){
+        ingredientMap.put(i, amount);
+    }
+    
+    public void displayIngredients(){
+        System.out.println("Ingredients of Plate : "+name);
+        for(Ingredient i : ingredientMap.keySet() ) {
+            Integer amount = ingredientMap.get(i);
+            System.out.println(i.getName() + " , "+amount + " gr");
+        }
+    }
 
     public String getName() {
         return name;

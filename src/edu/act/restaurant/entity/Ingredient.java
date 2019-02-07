@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package edu.act.restaurant.entity;
 
 /**
@@ -13,6 +8,10 @@ class Ingredient {
     
     private String name;
     private int amount;
+    
+    public Ingredient(String someName){
+        this.name = someName;
+    }
 
     public String getName() {
         return name;
@@ -29,7 +28,18 @@ class Ingredient {
     public void setAmount(int amount) {
         this.amount = amount;
     }
-    
-    
+
+    @Override
+    public boolean equals(Object obj) {
+       if(this == obj) return true;
+       if(! (obj instanceof Ingredient) ) return false;
+       Ingredient other = (Ingredient)obj;
+       return this.name.equals(other.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return name.hashCode();
+    }   
     
 }
