@@ -5,10 +5,12 @@
  */
 package edu.act.restaurant.boundary;
 
+import edu.act.restaurant.control.PlateIngredientListModel;
 import edu.act.restaurant.entity.Ingredient;
 import edu.act.restaurant.entity.IngredientCatalog;
-import edu.act.restaurant.entity.Initializer;
+import edu.act.restaurant.control.Initializer;
 import edu.act.restaurant.entity.Plate;
+import edu.act.restaurant.entity.PlateCatalog;
 import javax.swing.AbstractListModel;
 
 /**
@@ -18,15 +20,11 @@ import javax.swing.AbstractListModel;
 public class CreatePlateFrame extends javax.swing.JFrame {
 
     private Plate newPlate;
-    
-    
-
+ 
     public CreatePlateFrame() {
-        
         Initializer.init();
         initComponents();
         ingredientJList.setModel(getListModel());
-        
         newPlate = new Plate();
     }
     
@@ -63,6 +61,9 @@ public class CreatePlateFrame extends javax.swing.JFrame {
         plateNameTxt = new javax.swing.JTextField();
         quantityTxt = new javax.swing.JTextField();
         addIngredientBtn = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        plateList = new javax.swing.JList<>();
+        savePlateBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -81,6 +82,15 @@ public class CreatePlateFrame extends javax.swing.JFrame {
         addIngredientBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addIngredientBtnActionPerformed(evt);
+            }
+        });
+
+        jScrollPane2.setViewportView(plateList);
+
+        savePlateBtn.setText("SAVE PLATE");
+        savePlateBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                savePlateBtnActionPerformed(evt);
             }
         });
 
@@ -104,7 +114,12 @@ public class CreatePlateFrame extends javax.swing.JFrame {
                             .addComponent(jLabel4)
                             .addComponent(plateNameTxt)
                             .addComponent(quantityTxt)
-                            .addComponent(addIngredientBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE))))
+                            .addComponent(addIngredientBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(savePlateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -129,7 +144,14 @@ public class CreatePlateFrame extends javax.swing.JFrame {
                         .addComponent(quantityTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(addIngredientBtn)))
-                .addContainerGap(194, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(73, 73, 73)
+                        .addComponent(savePlateBtn)))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         pack();
@@ -137,9 +159,27 @@ public class CreatePlateFrame extends javax.swing.JFrame {
 
     private void addIngredientBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addIngredientBtnActionPerformed
         // TODO add your handling code here:
+        String quantityString = quantityTxt.getText();
+        int quantity = Integer.parseInt(quantityString);
+        Ingredient ingredient = ingredientJList.getSelectedValue();
         
-        System.out.println("Button pressed!");
+        if(ingredient != null) {
+            newPlate.storeIngredient(ingredient, quantity);
+        }
+        System.out.println("Added ingredient to plate : "+ingredient);
+        
+        plateList.setModel(new PlateIngredientListModel(newPlate));
     }//GEN-LAST:event_addIngredientBtnActionPerformed
+
+    private void savePlateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_savePlateBtnActionPerformed
+        // TODO add your handling code here:
+        String plateName = plateNameTxt.getText();
+        if(!plateName.equals("")) {
+            newPlate.setName(plateName);
+            PlateCatalog.addPlate(newPlate);
+            System.out.println("Plate added to catalog.");
+        }
+    }//GEN-LAST:event_savePlateBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -184,7 +224,10 @@ public class CreatePlateFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JList<String> plateList;
     private javax.swing.JTextField plateNameTxt;
     private javax.swing.JTextField quantityTxt;
+    private javax.swing.JButton savePlateBtn;
     // End of variables declaration//GEN-END:variables
 }

@@ -16,11 +16,19 @@ public class Plate {
     public Plate() {
         ingredientMap = new HashMap<>();
     }
+    
+    public int getIngredientsSize(){
+        return ingredientMap.size();
+    }
 
     public void storeIngredient(Ingredient i, int amount) {
         ingredientMap.put(i, amount);
     }
 
+    public Map<Ingredient, Integer> getIngredientMap() {
+        return ingredientMap;
+    }
+    
     public void displayIngredients() {
         System.out.println("Ingredients of Plate : " + name);
         for (Ingredient i : ingredientMap.keySet()) {

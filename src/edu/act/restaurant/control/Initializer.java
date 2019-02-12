@@ -1,4 +1,9 @@
-package edu.act.restaurant.entity;
+package edu.act.restaurant.control;
+
+import edu.act.restaurant.entity.Ingredient;
+import edu.act.restaurant.entity.IngredientCatalog;
+import edu.act.restaurant.entity.Plate;
+import edu.act.restaurant.entity.PlateCatalog;
 
 /**
  *
