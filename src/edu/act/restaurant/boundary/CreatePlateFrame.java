@@ -5,18 +5,42 @@
  */
 package edu.act.restaurant.boundary;
 
+import edu.act.restaurant.entity.Ingredient;
+import edu.act.restaurant.entity.IngredientCatalog;
+import edu.act.restaurant.entity.Initializer;
+import edu.act.restaurant.entity.Plate;
+import javax.swing.AbstractListModel;
+
 /**
  *
  * @author chaikal
  */
 public class CreatePlateFrame extends javax.swing.JFrame {
 
-    /**
-     * Creates new form CreatePlateFrame
-     */
+    private Plate newPlate;
+
     public CreatePlateFrame() {
+        Initializer.init();
         initComponents();
+        ingredientJList.setModel(getListModel());
+        
+        newPlate = new Plate();
     }
+    
+    private AbstractListModel<Ingredient> getListModel(){
+         return new AbstractListModel<Ingredient>() {
+             @Override
+             public int getSize() {
+                 return IngredientCatalog.getIngredients().size();
+             }
+
+             @Override
+             public Ingredient getElementAt(int index) {
+                 return IngredientCatalog.getIngredients().get(index);
+             }
+         };
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -31,6 +55,11 @@ public class CreatePlateFrame extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         ingredientJList = new javax.swing.JList<>();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        plateNameTxt = new javax.swing.JTextField();
+        quantityTxt = new javax.swing.JTextField();
+        addIngredientBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -40,6 +69,17 @@ public class CreatePlateFrame extends javax.swing.JFrame {
         jLabel2.setText("Ingredients: ");
 
         jScrollPane1.setViewportView(ingredientJList);
+
+        jLabel3.setText("Plate Name");
+
+        jLabel4.setText("Quantity");
+
+        addIngredientBtn.setText("Add Ingredient to Plate");
+        addIngredientBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addIngredientBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -52,26 +92,51 @@ public class CreatePlateFrame extends javax.swing.JFrame {
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel2))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(137, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(56, 56, 56)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)
+                            .addComponent(plateNameTxt)
+                            .addComponent(quantityTxt)
+                            .addComponent(addIngredientBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(106, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(plateNameTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(quantityTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(addIngredientBtn)))
+                .addContainerGap(194, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void addIngredientBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addIngredientBtnActionPerformed
+        // TODO add your handling code here:
+        
+        System.out.println("Button pressed!");
+    }//GEN-LAST:event_addIngredientBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -109,9 +174,14 @@ public class CreatePlateFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JList<String> ingredientJList;
+    private javax.swing.JButton addIngredientBtn;
+    private javax.swing.JList<Ingredient> ingredientJList;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField plateNameTxt;
+    private javax.swing.JTextField quantityTxt;
     // End of variables declaration//GEN-END:variables
 }
