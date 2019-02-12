@@ -18,6 +18,8 @@ import javax.swing.AbstractListModel;
 public class CreatePlateFrame extends javax.swing.JFrame {
 
     private Plate newPlate;
+    
+    
 
     public CreatePlateFrame() {
         
