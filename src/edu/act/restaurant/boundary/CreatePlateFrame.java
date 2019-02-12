@@ -20,6 +20,7 @@ public class CreatePlateFrame extends javax.swing.JFrame {
     private Plate newPlate;
 
     public CreatePlateFrame() {
+        
         Initializer.init();
         initComponents();
         ingredientJList.setModel(getListModel());
