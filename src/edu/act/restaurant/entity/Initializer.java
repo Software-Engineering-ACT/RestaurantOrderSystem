@@ -4,12 +4,9 @@ package edu.act.restaurant.entity;
  *
  * @author chaikal
  */
-public class RestaurantOrderSystem {
+public class Initializer {
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
+    public static void init() {
         
         Plate nice = new Plate();
         nice.setName("Spaggeti with meatballs");

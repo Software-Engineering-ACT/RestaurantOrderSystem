@@ -4,7 +4,7 @@ package edu.act.restaurant.entity;
  *
  * @author chaikal
  */
-class Ingredient {
+public class Ingredient {
     
     private String name;
     private int amount;
@@ -42,5 +42,12 @@ class Ingredient {
     public int hashCode() {
         return name.hashCode();
     }   
+
+    @Override
+    public String toString() {
+        return name;
+    }
+    
+    
     
 }

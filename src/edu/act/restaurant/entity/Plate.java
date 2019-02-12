@@ -7,7 +7,7 @@ import java.util.Map;
  *
  * @author chaikal
  */
-class Plate {
+public class Plate {
 
     private String name;
 
